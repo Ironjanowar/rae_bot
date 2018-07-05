@@ -35,16 +35,16 @@ defmodule RaeBot.Bot do
   def handle({:command, "search", %{text: msg_text}}, context) do
     msg_text
     |> String.split()
-    |> Enum.map(fn word ->
+    |> Enum.reduce(context, fn word, cnt ->
       case search(word) do
         {:ok, word, word_data} ->
           Logger.info("Formatting word #{word}")
           text = format_definition_response(word, word_data)
-          answer(context, text, parse_mode: "HTML")
+          cnt |> answer(text, parse_mode: "HTML")
 
         err ->
-          err |> inspect |> Logger.info()
-          err
+          err |> inspect |> Logger.error()
+          cnt
       end
     end)
   end
