@@ -2,7 +2,7 @@
 ** Get drae api running
 Install docker and run ~docker run -p 4000:4000 squat/drae~. There are
 no logs to show that is running so try requesting a ~GET~ to
-http://localhost:4000/healthz. You should get a ~200 OK~.
+~http://localhost:4000/healthz~. You should get a ~200 OK~.
 
 ** Run the bot
 By now just run ~mix run --no-halt~
