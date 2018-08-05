@@ -60,16 +60,13 @@ defmodule RaeBot.Bot do
   def handle({:update, %{inline_query: %{id: inline_query_id, query: word}}}, _context)
       when word != "" do
     {:ok, text} = search_and_format(word)
-    Logger.info("Result text: #{text}")
-    message_text = %ExGram.Model.InputTextMessageContent{message_text: text, parse_mode: "HTML"}
 
-    result = %ExGram.Model.InlineQueryResultArticle{
-      input_message_content: message_text,
-      title: word,
-      id: 1,
-      type: "article"
-    }
+    results = RaeBot.Utils.generate_inline_response([[title: word, result: text]], "HTML")
 
-    ExGram.answer_inline_query(inline_query_id, [result]) |> inspect |> Logger.debug()
+    ExGram.answer_inline_query(inline_query_id, results) |> inspect |> Logger.debug()
+  end
+
+  def handle({:update, %{inline_query: %{query: ""}}}, _context) do
+    Logger.info("Message without query")
   end
 end
