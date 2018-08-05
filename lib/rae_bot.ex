@@ -6,7 +6,7 @@ defmodule RaeBot do
   require Logger
 
   def start(_type, _args) do
-    token = ExGram.Config.get(:rae_bot, :token)
+    token = ExGram.Config.get(:ex_gram, :token)
 
     children = [
       supervisor(ExGram, []),

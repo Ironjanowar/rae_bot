@@ -4,7 +4,7 @@ defmodule RaeBot.WebClient do
   require Logger
 
   defp host, do: ExGram.Config.get(:rae_bot, :rae_api_host, "localhost")
-  defp port, do: ExGram.Config.get(:rae_bot, :rae_api_port, "4000")
+  defp port, do: ExGram.Config.get(:rae_bot, :rae_api_port, 4000)
 
   plug(Tesla.Middleware.BaseUrl, "http://#{host()}:#{port()}")
   plug(Tesla.Middleware.Headers, [{"Content-Type", "application/json"}])
@@ -14,7 +14,7 @@ defmodule RaeBot.WebClient do
     case get("/api/#{word}") do
       {:ok, %{body: body, status: 200}} ->
         decoded_body = Jason.decode!(body)
-        Logger.debug("[GET] /api/#{word} - Response: #{inspect(decoded_body)}")
+        # Logger.debug("[GET] /api/#{word} - Response: #{inspect(decoded_body)}")
         {:ok, decoded_body}
 
       {:ok, %{status: 404}} ->

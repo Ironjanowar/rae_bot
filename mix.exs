@@ -22,8 +22,7 @@ defmodule RaeBot.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:ex_gram,
-       git: "https://github.com/rockneurotiko/ex_gram", branch: "update_api_fix_type_checks"},
+      {:ex_gram, github: "rockneurotiko/ex_gram", branch: "update_api_fix_type_checks"},
       {:tesla, "~> 1.0.0"},
       {:jason, "~> 1.1"}
     ]
